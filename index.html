@@ -67,7 +67,7 @@ button{font:inherit}
 </section>
 </main>
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbyI6DrcEATfE_WV5ey5_Rkhm1qNIYHVSBI6Fn69Z_OWA0w1NibLEh_WwI_lV1mTkMbN/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxJyC9BzqQ84ZDExSQpnUBceQId6CWLXIAdwnC6cFPxbJYZUn-gkD7JPbGtaA62avd5/exec";
 let currentData = null;
 function money(n){ return new Intl.NumberFormat('en-US',{style:'currency',currency:'THB',minimumFractionDigits:0,maximumFractionDigits:2}).format(Number(n)||0); }
 function showScreen(id){ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo({top:0,behavior:'instant'}); }
@@ -97,7 +97,8 @@ function render(data){
 }
 async function refresh(){
   try{
-    const res=await fetch(API_URL,{cache:'no-store',redirect:'follow'});
+    const separator=API_URL.includes('?')?'&':'?';
+    const res=await fetch(API_URL+separator+'refresh='+Date.now(),{cache:'no-store',redirect:'follow'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const data=await res.json();
     if(data.error) throw new Error(data.message || 'API error');
